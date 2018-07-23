@@ -2,20 +2,14 @@ var bcrypt    = require('bcrypt');
 var jwt  = require('./utils/jwt.utils');
 
 module.exports = {
- /* User: {
-    boards: ({ id }, args, { models }) =>
-      models.Board.findAll({
+ User: {
+    profile_id: ({ profile_id }, args, { models }) =>
+      models.Profile.findOne({
         where: {
-          owner: id,
+          id: profile_id,
         },
-      }),
-    suggestions: ({ id }, args, { models }) =>
-      models.Suggestion.findAll({
-        where: {
-          creatorId: id,
-        },
-      }),
-  },*/
+      })
+  },
 Query: {
   allUsers: (parent, args, { models,user }) => {
     if (user){
@@ -32,24 +26,48 @@ query
     if (user) {  
       // they are logged in
         return models.User.findOne({
-        attributes: [ 'id', 'email', 'username', 'bio','createdAt','updatedAt' ],
+        attributes: [ 'id', 'email', 'name', 'surname','profile_id','createdAt','updatedAt' ],
         where: { id: user.Id }
         });        
     }
     // not logged in user
     throw new Error('Vous devez vous connecter');
-    //return null;
   },
-},
 /*Exemple d'appel *
 query
 {
   me
 }
 */
+  userProfile: (parent, args, { models, user }) => {
+    if (user) {  
+      // they are logged in
+        return models.Profile.findOne({
+        attributes: [ 'id', 'name' ],
+        where: { id: user.ProfileId }
+        });        
+    }
+    // not logged in user
+    throw new Error('Vous devez vous connecter');
+  },
+},
+/*Exemple d'appel *
+query
+{
+  userProfile
+}
+*/
 Mutation: {
     register: async (parent, args, { models }) => {
+      const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const PASSWORD_REGEX  = /^(?=.*\d).{4,8}$/;
       const user = args;
+      if (!EMAIL_REGEX.test(user.email)) {
+        throw new Error('Email non valide');
+      }
+      if (!PASSWORD_REGEX.test(user.password)) {
+        throw new Error('Mot de passe entre 4 et 8 caractères avec au moins 1 chiffre');
+      }
       user.password = await bcrypt.hash(user.password, 12);
       return models.User.create(user);
 /*Exemple d'Appel d'inscription
@@ -79,8 +97,8 @@ mutation
 }
 */
       },
-    updateUser: (parent, { username, newUsername }, { models }) =>
-      models.User.update({ username: newUsername }, { where: { username } }),
+    updateUser: (parent, { name, newName }, { models }) =>
+      models.User.update({ name: newName }, { where: { name } }),
 /*Exemple de suppression
 mutation
 {
@@ -95,5 +113,8 @@ mutation
   deleteUser(username:"antoni")
 }
 */
-  },
-};
+    createProfile:(parent, args, { models }) =>
+      
+      models.Profile.create(args),
+      
+}};

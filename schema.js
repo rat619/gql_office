@@ -2,23 +2,29 @@ var resolvers    = require('./resolvers');
 var gpltools    = require('graphql-tools');
 
 const schemaDefinition = `
+  type Profile {
+    id : Int!
+    name: String!
+  }
   type User {
     id: Int!
-    username: String!
+    name: String!
+    surname: String
     email: String!
-    bio : String
-    IsAdmin : Boolean
+    profile_id : Profile!
     createdAt: String
     updatedAt: String 
   }
   type Query {
     allUsers: [User!]!
     me: User
+    userProfile: Profile
   }
   type Mutation {
-    updateUser(username: String!, newUsername: String!): [Int!]!
-    deleteUser(username: String!): Int!
-    register(username: String!, email: String!, password: String!): User!
+    updateUser(name: String!, newName: String!): [Int!]!
+    deleteUser(id: Int!): Int!
+    register(name: String!, surname: String, email: String!, password: String!,profile_id:String!): User!
+    createProfile(name: String!) : Profile!
     login(email: String!, password: String!): String!
   }
 `;

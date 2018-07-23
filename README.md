@@ -31,7 +31,7 @@ Create the class  :
 
 2) Create the db
 
-3) Run the command : sequelize db:migrate
+3) Run the command : sequelize db:migrate (if error auth then "alter user 'USER'@'localhost' identified with mysql_native_password by 'PASSWORD'")
 
 4) Go to workbench, database => reverse engineer => Click Execute
 

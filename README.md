@@ -27,7 +27,7 @@ Modify your config.json by writing your db adresse
 
 Create the class  : 
 
-1) sequelize model:create --attributes "email:string username:string password:string bio:string isAdmin:boolean" -- name User
+1) sequelize model:create --attributes "email:string username:string password:string bio:string isAdmin:boolean" --name User
 
 2) Create the db
 

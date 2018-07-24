@@ -20,7 +20,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      profile_id: {
+      profile: {
         type: Sequelize.INTEGER
 /*      ,references: {
           model: 'profiles',

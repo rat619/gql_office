@@ -11,7 +11,7 @@ const schemaDefinition = `
     name: String!
     surname: String
     email: String!
-    profile_id : Profile!
+    profile : Profile!
     createdAt: String
     updatedAt: String 
   }
@@ -23,7 +23,7 @@ const schemaDefinition = `
   type Mutation {
     updateUser(name: String!, newName: String!): [Int!]!
     deleteUser(id: Int!): Int!
-    register(name: String!, surname: String, email: String!, password: String!,profile_id:String!): User!
+    register(name: String!, surname: String, email: String!, password: String!,profile:Int!): User!
     createProfile(name: String!) : Profile!
     login(email: String!, password: String!): String!
   }

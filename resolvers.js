@@ -3,10 +3,10 @@ var jwt  = require('./utils/jwt.utils');
 
 module.exports = {
  User: {
-    profile_id: ({ profile_id }, args, { models }) =>
+    profile: ({ profile }, args, { models }) =>
       models.Profile.findOne({
         where: {
-          id: profile_id,
+          id: profile,
         },
       })
   },
@@ -26,7 +26,7 @@ query
     if (user) {  
       // they are logged in
         return models.User.findOne({
-        attributes: [ 'id', 'email', 'name', 'surname','profile_id','createdAt','updatedAt' ],
+        attributes: [ 'id', 'email', 'name', 'surname','profile','createdAt','updatedAt' ],
         where: { id: user.Id }
         });        
     }

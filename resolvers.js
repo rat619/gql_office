@@ -44,12 +44,26 @@ query
       // they are logged in
         return models.Profile.findOne({
         attributes: [ 'id', 'name' ],
-        where: { id: user.ProfileId }
+        where: { id: user.Profile }
         });        
     }
     // not logged in user
     throw new Error('Vous devez vous connecter');
   },
+  profilePermission: (parent, args, { models, user }) => {
+    if (user) {  
+      // they are logged in
+
+        return models.rel_profile_permission.findAll({
+        attributes: [ 'permission'],
+        where: { profile: user.Profile }
+        });
+        
+      
+    // not logged in user
+      throw new Error('Vous devez vous connecter');
+    }
+  }
 },
 /*Exemple d'appel *
 query
@@ -114,7 +128,9 @@ mutation
 }
 */
     createProfile:(parent, args, { models }) =>
-      
       models.Profile.create(args),
-      
+    createPermission:(parent, args, { models }) =>
+      models.Permission.create(args),     
+    createProfilePermission:(parent, args, { models }) =>
+      models.rel_profile_permission.create(args), 
 }};

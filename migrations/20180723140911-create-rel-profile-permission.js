@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      profile_id: {
+      profile: {
         type: Sequelize.INTEGER
         /*,
         references: {
@@ -16,7 +16,7 @@ module.exports = {
           key: 'id'
         }*/
       },
-      permission_id: {
+      permission: {
         type: Sequelize.INTEGER
        /*,
         references: {

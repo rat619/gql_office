@@ -14,6 +14,12 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      write: {
+        type: Sequelize.BOOLEAN
+      },
+      read: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

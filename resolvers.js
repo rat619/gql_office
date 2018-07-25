@@ -2,7 +2,29 @@ var bcrypt    = require('bcrypt');
 var jwt  = require('./utils/jwt.utils');
 
 module.exports = {
- User: {
+  User: {
+    profile: ({ profile }, args, { models }) =>
+      models.Profile.findOne({
+        where: {
+          id: profile,
+        },
+      })
+  },
+  Profile: {
+    permissions: ({ id }, args, { models }) =>
+      models.rel_profile_permission.findAll({
+        where: {
+          profile: id,
+        },
+      })
+  },
+  Rel_profile_permission: {
+    permission: ({ permission }, args, { models }) =>
+      models.Permission.findOne({
+        where: {
+          id: permission,
+        },
+      }),
     profile: ({ profile }, args, { models }) =>
       models.Profile.findOne({
         where: {
@@ -11,12 +33,9 @@ module.exports = {
       })
   },
 Query: {
-  allUsers: (parent, args, { models,user }) => {
-    if (user){
+  allUsers: (parent, args, { models}) => {
       return models.User.findAll();
-    }
-    throw new Error('vous devez vous connecter'); 
-  },
+    },
 /*Exemple d'appel 
 query
 {
@@ -39,6 +58,8 @@ query
   me
 }
 */
+
+/* Abandonner suite à la modification de la structure du modèle
   userProfile: (parent, args, { models, user }) => {
     if (user) {  
       // they are logged in
@@ -50,24 +71,15 @@ query
     // not logged in user
     throw new Error('Vous devez vous connecter');
   },
-  profilePermission: (parent, args, { models, user }) => {
-    if (user) {  
-      // they are logged in
-        return models.rel_profile_permission.findAll({
-        attributes: [ 'permission','profile'],
-        where: { profile: user.Profile }
-        });
-    // not logged in user
-      throw new Error('Vous devez vous connecter');
-    }
+*/
+
+  profilePermission: (parent, args, {models}) => {  
+        return models.Profile.findAll()
+          //({attributes: [ 'id', 'name', 'permissions'],
+          //where: { id: user.Id }})
   }
 },
-/*Exemple d'appel *
-query
-{
-  userProfile
-}
-*/
+
 Mutation: {
     register: async (parent, args, { models }) => {
       const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -90,6 +102,9 @@ mutation
     },
     login: async (parent, { email, password }, { models, SECRET },context) => {
       const user = await models.User.findOne({ where: { email } });
+      const perm= await models.rel_profile_permission.findAll({
+        attributes: [ 'permission'],
+        where: {profile: user.profile,}});
       if (!user) {
         throw new Error('Not user with that email');
       }
@@ -130,4 +145,4 @@ mutation
       models.Permission.create(args),     
     createProfilePermission:(parent, args, { models }) =>
       models.rel_profile_permission.create(args), 
-}};
+}}; 

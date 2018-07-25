@@ -5,6 +5,7 @@ const schemaDefinition = `
   type Profile {
     id : Int!
     name: String!
+    permissions : [Rel_profile_permission]!
   }
   type Permission {
     id : Int!
@@ -16,7 +17,7 @@ const schemaDefinition = `
   type Rel_profile_permission {
     id : Int!
     profile: Int!
-    permission : Int!
+    permission : Permission!
   }
   type User {
     id: Int!
@@ -31,7 +32,7 @@ const schemaDefinition = `
     allUsers: [User!]!
     me: User
     userProfile: Profile
-    profilePermission: [Rel_profile_permission]
+    profilePermission: [Profile]
   }
   type Mutation {
     updateUser(name: String!, newName: String!): [Int!]!

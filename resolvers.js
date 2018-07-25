@@ -53,13 +53,10 @@ query
   profilePermission: (parent, args, { models, user }) => {
     if (user) {  
       // they are logged in
-
         return models.rel_profile_permission.findAll({
-        attributes: [ 'permission'],
+        attributes: [ 'permission','profile'],
         where: { profile: user.Profile }
         });
-        
-      
     // not logged in user
       throw new Error('Vous devez vous connecter');
     }

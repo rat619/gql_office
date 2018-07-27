@@ -3,7 +3,8 @@ var express     = require('express');
 var bodyParser  = require('body-parser');
 var graphqlHTTP = require('express-graphql');
 var expressjwt = require('express-jwt');
-var schema=require('./schema');
+var schemaUser=require('./schema/schemaUser');
+var schemaProduct=require('./schema/schemaProduct');
 var models = require('./models');
 //var { buildSchema } = require('graphql');
 //var jwt  = require('./utils/jwt.utils');
@@ -44,11 +45,11 @@ server.use(function (err, req, res, next) {
   });
 */
 server.use(
-    '/graphql',
+    '/graphql/users',
     bodyParser.json(),
     auth,  // A utiliser pour la méthode automatique de gestion des autorisations
     graphqlHTTP(req => ({
-        schema : schema,
+        schema : schemaUser,
         context: {
           models,
           SECRET,
@@ -57,4 +58,21 @@ server.use(
         graphiql: true  
       })
     ));
+
+
+server.use(
+  '/graphql/products',
+  bodyParser.json(),
+  auth,  // A utiliser pour la méthode automatique de gestion des autorisations
+  graphqlHTTP(req => ({
+    schema: schemaProduct,
+    context: {
+      models,
+      SECRET,
+      user: req.user,
+    },
+    graphiql: true
+  })
+  ));
+
 server.listen(4000, () => console.log('GraphQl on localhost:4000/graphql'));

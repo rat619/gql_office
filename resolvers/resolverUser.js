@@ -1,5 +1,5 @@
 var bcrypt    = require('bcrypt');
-var jwt  = require('./utils/jwt.utils');
+var jwt  = require('../utils/jwt.utils');
 
 module.exports = {
   User: {
@@ -25,12 +25,6 @@ module.exports = {
           id: permission,
         },
       }),
-    profile: ({ profile }, args, { models }) =>
-      models.Profile.findOne({
-        where: {
-          id: profile,
-        },
-      })
   },
 Query: {
   allUsers: (parent, args, { models}) => {

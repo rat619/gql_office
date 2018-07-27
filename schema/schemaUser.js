@@ -1,4 +1,4 @@
-var resolvers    = require('./resolvers');
+var resolvers    = require('../resolvers/resolverUser');
 var gpltools    = require('graphql-tools');
 
 const schemaDefinition = `

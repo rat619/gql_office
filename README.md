@@ -36,5 +36,18 @@ Create the class  :
 4) Go to workbench, database => reverse engineer => Click Execute
 
 
+When you want to modify your db, you can create a migration:
+Command line : sequelize migration:create --name modif
+and use queryinterface
+
+You can also import your existing database by install sequelize-auto:
+npm install -g sequelize-auto
+npm install -g mysql
+sequelize-auto -o "./models" -d database_name -h ip_server -u username -p port -x password -e mysql
+(https://github.com/sequelize/sequelize-auto)
+
+
+
+
   
 

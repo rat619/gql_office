@@ -5,6 +5,7 @@ const schemaDefinition = `
 type Product {
   id : Int!
   name: String!
+  selling_price : Float
 }
 type Query {
   allProduct: [Product]

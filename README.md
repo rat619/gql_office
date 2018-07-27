@@ -46,7 +46,11 @@ npm install -g mysql
 sequelize-auto -o "./models" -d database_name -h ip_server -u username -p port -x password -e mysql
 (https://github.com/sequelize/sequelize-auto)
 
-
+DB admin:
+To export a database mysql, command line:
+mysqldump -u username -p dbname > dbexport.sql
+To import a database mysql, command line:
+mysqldump -u username -p dbname < dbexport.sql
 
 
   

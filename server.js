@@ -59,7 +59,6 @@ server.use(
       })
     ));
 
-
 server.use(
   '/graphql/products',
   bodyParser.json(),

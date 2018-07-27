@@ -9,6 +9,9 @@ type Product {
 type Query {
   allProduct: [Product]
 }
+type Mutation {
+  createProduct(name: String!) : Product!
+}
 `;
 
 module.exports = gpltools.makeExecutableSchema({

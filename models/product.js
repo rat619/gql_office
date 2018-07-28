@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     coefficient: {
-      type: "DOUBLE",
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     Code_VAT: {
@@ -19,23 +19,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     selling_price: {
-      type: "DOUBLE",
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     purchasing_price: {
-      type: "DOUBLE",
+      type:DataTypes.DOUBLE,
       allowNull: true
     },
     tax_free_rate: {
-      type: "DOUBLE",
+      type:DataTypes.DOUBLE,
       allowNull: true
     },
     CUMP: {
-      type: "DOUBLE",
+      type:DataTypes.DOUBLE,
       allowNull: true
     },
     weight: {
-      type: "DOUBLE",
+      type:DataTypes.DOUBLE,
       allowNull: true
     },
     size: {

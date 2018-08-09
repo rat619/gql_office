@@ -23,6 +23,23 @@ const auth = expressjwt({
     credentialsRequired: false,
   });
 
+  server.get('/graphql', function (req, res) {
+
+    res.setHeader('Content-Type', 'text/html');
+    res.write('<!DOCTYPE html>'+
+'<html>'+
+'    <head>'+
+'        <meta charset="utf-8" />'+
+'        <title>Welcome to SAY GRAPHQL !</title>'+
+'    </head>'+ 
+'    <body>'+
+'      <h1>Welcome to SAY GraphQL</h1>'+
+'      <h2><a href="http://localhost:4000/graphql/users"><strong>Users</strong></a></h2>'+
+'      <div>createUser</div>'+
+'      <h2><a href="http://localhost:4000/graphql/products"><strong>Products</strong></a></h2>'+
+'    </body>'+
+'</html>');
+});
 /*
 const addUser = async (req) => {
     var Head = req.headers['authorization'];

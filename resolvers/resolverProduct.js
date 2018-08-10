@@ -14,10 +14,10 @@ module.exports = {
     allProduct: (parent, args, { models}) => {
         return models.Product.findAll();
       },
-    OneProduct: (parent, Product, { models}) => {
+    OneProduct: (parent, args, { models}) => {
         return models.Product.findOne({
           attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
-          where: { id: Product.id  }
+          where: { id: args.id  }
           });        
       },
     allColor: (parent, args, { models}) => {

@@ -6,6 +6,7 @@ type Product {
   id : Int!
   name: String!
   selling_price : Float
+  color : Color
 }
 type Color {
   id : Int!
@@ -18,10 +19,11 @@ type Color {
 }
 type Query {
   allProduct: [Product]
+  OneProduct(id: Int) : Product
   allColor: [Color]
 }
 type Mutation {
-  createProduct(name: String!) : Product!
+  createProduct(name: String!,selling_price: Float, color: Int ) : Product!
   createColor(name: String, hexa: String, description: String, R: String, G: String, B: String) : Color! 
 }
 `;

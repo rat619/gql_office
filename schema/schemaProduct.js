@@ -19,7 +19,7 @@ type Color {
 }
 type Query {
   allProduct: [Product]
-  OneProduct(id: Int) : Product
+  OneProduct(id: Int,name: String) : Product
   allColor: [Color]
 }
 type Mutation {

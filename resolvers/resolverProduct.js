@@ -17,9 +17,14 @@ module.exports = {
     OneProduct: (parent, args, { models}) => {
         return models.Product.findOne({
           attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
-          where: { id: args.id  }
-          });        
-      },
+          where: { 
+              $or : {
+                id: args.id, 
+                name: args.name,
+          }
+        }        
+      })
+    },
     allColor: (parent, args, { models}) => {
         return models.ref_color.findAll();
       }

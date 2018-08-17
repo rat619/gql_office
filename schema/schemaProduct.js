@@ -18,7 +18,7 @@ type Color {
   B: String
 }
 type Query {
-  allProduct: [Product]
+  allProduct(id: Int,name: String): [Product]
   OneProduct(id: Int,name: String) : Product
   allColor: [Color]
 }

@@ -12,9 +12,26 @@ module.exports = {
   },
   Query: {
     allProduct: (parent, args, { models}) => {
-        return models.Product.findAll();
+    if (args.id && args.name) 
+    {
+      var conditions = {
+        id: args.id,
+        name: args.name
+      };
+    }
+    else 
+    {
+      var conditions = {};
+    }
+      return models.Product.findAll({
+          attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
+          where: conditions
+        });
+
+      //return models.Product.findAll({});
+
       },
-    OneProduct: (parent, args, { models}) => {
+   /* OneProduct: (parent, args, { models}) => {
         return models.Product.findOne({
           attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
           where: { 
@@ -24,7 +41,7 @@ module.exports = {
           }
         }        
       })
-    },
+    },*/
     allColor: (parent, args, { models}) => {
         return models.ref_color.findAll();
       }

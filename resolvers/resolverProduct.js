@@ -8,28 +8,20 @@ module.exports = {
         where: {
           id: color,
         },
+      }),
+    provider: ({ provider }, args, { models }) =>
+      models.Provider.findOne({
+        where: {
+          id: provider,
+        },
       })
   },
   Query: {
     allProduct: (parent, args, { models}) => {
-    if (args.id && args.name) 
-    {
-      var conditions = {
-        id: args.id,
-        name: args.name
-      };
-    }
-    else 
-    {
-      var conditions = {};
-    }
       return models.Product.findAll({
           attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
-          where: conditions
+          where: args
         });
-
-      //return models.Product.findAll({});
-
       },
    /* OneProduct: (parent, args, { models}) => {
         return models.Product.findOne({
@@ -43,13 +35,26 @@ module.exports = {
       })
     },*/
     allColor: (parent, args, { models}) => {
-        return models.ref_color.findAll();
+        return models.ref_color.findAll({
+          where: args
+        });
+      },
+    OneColorId: (parent, args, { models}) => {
+        return models.ref_color.findOne({
+          attributes: ['id'],
+          where: args
+        });
+      },
+    allProvider: (parent, args, { models}) => {
+        return models.Provider.findAll();
       }
     },
   Mutation: {
     createProduct:(parent, args, { models }) =>
-    models.Product.create(args),
+      models.Product.create(args),
     createColor:(parent, args, { models }) =>
-    models.ref_color.create(args)
+    models.ref_color.create(args),
+    createProvider:(parent, args, { models }) =>
+    models.Provider.create(args)
   }
 }; 

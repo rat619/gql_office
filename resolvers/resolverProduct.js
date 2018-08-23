@@ -17,7 +17,7 @@ module.exports = {
     } */
     /// A AMELIORER
     __serialize(value) {
-
+       //console.log (new Date(value).getDay() +"/" + new Date(value).getMonth() +"/"+ new Date(value).getFullYear());
       return value; // value sent to the client
     },
   
@@ -68,6 +68,12 @@ module.exports = {
           id: size,
         },
       }),
+    label: ({ label }, args, { models }) =>
+      models.Label.findOne({
+        where: {
+          id: label,
+        },
+      }),
     season: ({ season }, args, { models }) =>
       models.season.findOne({
         where: {
@@ -78,13 +84,13 @@ module.exports = {
   Query: {
     allProduct: (parent, args, { models}) => {
       return models.Product.findAll({
-          attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
+          attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt','range','provider','size','season','group','code_vat' ],
           where: args
         });
       },
     OneProduct: (parent, args, { models}) => {
         return models.Product.findOne({
-          attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt' ],
+          attributes: [ 'id', 'name','selling_price','color','createdAt','updatedAt','range','provider','size','season','group','code_vat' ],
           where: args
           /*{ 
               $or : {
@@ -110,7 +116,7 @@ module.exports = {
       },
     OneProvider: (parent, args, { models}) => {
         return models.Provider.findOne({
-          attributes: ['id'],
+          attributes: ['id','name'],
           where: args
         });
       },
@@ -150,6 +156,15 @@ module.exports = {
           where: args
         });
       },
+    allLabel: (parent, args, { models}) => {
+        return models.Label.findAll();
+      },
+    OneLabel: (parent, args, { models}) => {
+        return models.Label.findOne({
+          attributes: ['id'],
+          where: args
+        });
+      },
     allSeason: (parent, args, { models}) => {
         return models.season.findAll();
       },
@@ -175,6 +190,8 @@ module.exports = {
     models.group.create(args),
     createSize:(parent, args, { models }) =>
     models.size.create(args),
+    createLabel:(parent, args, { models }) =>
+    models.Label.create(args),
     createSeason:(parent, args, { models }) =>
     models.season.create(args),
   },

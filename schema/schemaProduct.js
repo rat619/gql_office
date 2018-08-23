@@ -23,6 +23,7 @@ const modelProduct = `type Product {
   weight : Float
   season : Season
   size : Size
+  label: Label
   group : Group
 }
 type Color {
@@ -42,6 +43,12 @@ type Provider {
 type Range {
   id: Int!
   name: String
+}
+type Label {
+  id: Int!
+  code : String
+  name: String
+
 }
 type Code_VAT {
   id: Int!
@@ -84,19 +91,22 @@ type Query {
   OneGroup(id: Int, code: String, name: String): Group
   allSize : [Size]
   OneSize(id: Int, code: String, name: String): Size
+  allLabel : [Label]
+  OneLabel(id: Int, code: String, name: String): Label
   allSeason : [Season]
   OneSeason(id: Int, code: String, name: String): Season
 }`;
 
 const MutationProduct =`
 type Mutation {
-  createProduct(name: String!,selling_price: Float, color: Int ) : Product!
+  createProduct(name: String!,selling_price: Float, color: Int!, provider : Int!, range : Int!,code_vat : Int!, group : Int!, size :Int!, season: Int!  ) : Product!
   createColor(name: String, hexa: String, description: String, R: String, G: String, B: String) : Color!
   createProvider(name: String!,siret : String) : Provider!
   createRange(name: String!) : Range!
   createCodeVAT(code: String!, name: String!) : Code_VAT!
   createGroup(code: String!, name: String!) : Group!
   createSize(code: String!, name: String!) : Size!
+  createLabel(code: String!, name: String!) : Label!
   createSeason(code: String!, name: String!, enddate : Date, startdate : Date) : Season!
 }
 `;

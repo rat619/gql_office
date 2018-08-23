@@ -5,7 +5,7 @@ const modelProduct = `type Product {
   id : Int!
   name: String!
   selling_price : Float
-  color : Color
+  color : Color 
   provider : Provider
   coefficient : Float
   purchasing_price : Float
@@ -15,15 +15,12 @@ const modelProduct = `type Product {
 }
 type Color {
   id : Int!
-  name: String
+  name: String 
   description : String
   hexa: String
   R: String
   G: String
   B: String
-}
-input colorInput{
-  name :String
 }
 type Provider {
   id: Int!
@@ -43,7 +40,7 @@ type Query {
 
 const MutationProduct =`
 type Mutation {
-  createProduct(name: String!,selling_price: Float, input: colorInput ) : Product!
+  createProduct(name: String!,selling_price: Float, color: Int ) : Product!
   createColor(name: String, hexa: String, description: String, R: String, G: String, B: String) : Color!
   createProvider(name: String!,siret : String) : Provider!
 }

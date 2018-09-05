@@ -90,7 +90,7 @@ Mutation: {
 /*Exemple d'Appel d'inscription
 mutation
 {
-  register(username:"thierry",email:"rat619@test.fr",password:"tita619")
+  register(surname:"Thierry",name:"Antoni",email:"rat619@test.fr",password:"tita619")
 }
 */
     },
@@ -98,7 +98,7 @@ mutation
       const user = await models.User.findOne({ where: { email } });
       const perm= await models.rel_profile_permission.findAll({
         attributes: [ 'permission'],
-        where: {profile: user.profile,}});
+        where: {profile: user.profile,}}) ;
       if (!user) {
         throw new Error('Not user with that email');
       }
